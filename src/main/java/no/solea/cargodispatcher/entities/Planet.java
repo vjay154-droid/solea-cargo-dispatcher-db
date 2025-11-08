@@ -5,7 +5,8 @@ import lombok.*;
 
 @Entity
 @Table(name = "planet")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
