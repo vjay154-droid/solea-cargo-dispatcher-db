@@ -13,6 +13,7 @@ The application allows management of **products**, **planets**, **vehicles**, an
 - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
+- [API Documentation](#api-documentation)
 - [API Endpoints](#api-endpoints)
 - [Database Configuration](#database-configuration)
 - [Testing](#testing)
@@ -81,6 +82,16 @@ The server will start at:
     http://localhost:3004
 
 You can change the port in src/main/resources/application.yaml.
+
+---
+## API Documentation
+
+All APIs are documented using Swagger/OpenAPI.  
+You can access the Swagger UI after starting the application:
+
+**Swagger UI:** http://localhost:3004/swagger-ui/index.html
+
+It provides interactive documentation for all endpoints including request/response examples.
 
 ---
 ## API Endpoints
