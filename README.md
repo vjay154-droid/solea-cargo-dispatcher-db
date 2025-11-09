@@ -44,7 +44,7 @@ It provides REST APIs for managing products, planets, and vehicles, and supports
 ## Built With
 
 - **Java 21**
-- **Spring Boot 3.5.7**
+- **Spring Boot 3.3.5**
 - **Spring Data JPA / Hibernate**
 -  **H2 Database** (in-memory for dev/testing)
 -  **Lombok**
