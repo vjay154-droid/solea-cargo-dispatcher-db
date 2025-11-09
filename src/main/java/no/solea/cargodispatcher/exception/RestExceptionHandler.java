@@ -20,20 +20,6 @@ import java.util.Objects;
 @RestControllerAdvice
 @Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<?> handleRuntimeException(RuntimeException ex,
-                                                    HttpServletRequest request) {
-        log.error("Runtime exception in {} and exception is {} ",
-                request.getRequestURI(),ex.getMessage());
-        ApiErrorResponseDTO apiError = new ApiErrorResponseDTO(
-                LocalDateTime.now(),
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                ex.getMessage(),
-                request.getRequestURI()
-        );
-        return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<?> handleResponseStatusException(ResponseStatusException ex,
                                                            HttpServletRequest request) {
