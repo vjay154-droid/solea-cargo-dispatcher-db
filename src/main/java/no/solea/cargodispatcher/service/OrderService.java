@@ -49,9 +49,7 @@ public class OrderService {
     public OrderResponseDTO placeOrder(OrderRequestDTO orderRequestDTO){
         log.info("Placing order {}", orderRequestDTO);
 
-        Planet planet = planetRepository.findById(orderRequestDTO.planetId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Planet not found"));
+        Planet planet = fetchPlanet(orderRequestDTO.planetId());
 
         List<OrderItem> items = new ArrayList<>();
         double totalVolume = 0.0;
@@ -72,13 +70,7 @@ public class OrderService {
 
         Vehicle assignedVehicle = findAssignedVehicle(totalVolume, planet.getDistance());
 
-        Order order = Order.builder()
-                .planet(planet)
-                .assignedVehicle(assignedVehicle)
-                .totalVolume(totalVolume)
-                .travelTime(planet.getDistance() / assignedVehicle.getSpeed())
-                .items(items)
-                .build();
+        Order order = buildOrder(planet, assignedVehicle, totalVolume, items);
 
         // Set the back-reference for OrderItem to Order.
         for (OrderItem item : items) {
@@ -150,5 +142,24 @@ public class OrderService {
                 .min(Comparator.comparingDouble(v -> distance / v.getSpeed()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
                         "No suitable vehicle found"));
+    }
+
+    private Planet fetchPlanet(Long planetId) {
+        return planetRepository.findById(planetId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Planet not found"));
+    }
+
+    private Order buildOrder(Planet planet,
+                             Vehicle assignedVehicle,
+                             double totalVolume,
+                             List<OrderItem> items) {
+        return Order.builder()
+                .planet(planet)
+                .assignedVehicle(assignedVehicle)
+                .totalVolume(totalVolume)
+                .travelTime(planet.getDistance() / assignedVehicle.getSpeed())
+                .items(items)
+                .build();
     }
 }
