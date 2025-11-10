@@ -36,8 +36,8 @@ public class OrderRepositoryTest {
 
     @Test
     void testGetAllOrders() {
-        Order order1 = orderRepository.save(new Order());
-        Order order2 = orderRepository.save(new Order());
+        orderRepository.save(new Order());
+        orderRepository.save(new Order());
 
         List<Order> orders = orderRepository.findAll();
         assertThat(orders).hasSize(2);

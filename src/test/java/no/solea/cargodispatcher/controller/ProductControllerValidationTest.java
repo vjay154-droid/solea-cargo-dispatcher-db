@@ -25,6 +25,7 @@ class ProductControllerValidationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @SuppressWarnings("unused")
     @MockBean
     private ProductService productService;
 
