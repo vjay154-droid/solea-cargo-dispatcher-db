@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Utility class for converting between Order models and Order DTOs.
@@ -17,14 +18,16 @@ public class OrderMapper {
     public static OrderResponseDTO toOrderResponseDTO(Order order,
                                                       Planet planet,
                                                       List<Product> products){
+        Map<Long,Product> productMap = products.stream()
+                .collect(Collectors.toMap(Product::getId, p -> p));
+
         List<OrderItemResponseDTO> itemResponseDTOS = order.getItems().stream()
                 .map(orderItem -> {
-                    Product product = products.stream()
-                            .filter(product1 -> Objects.equals(product1.getId(),
-                                    orderItem.getProduct().getId()))
-                            .findFirst()
-                            .orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                                    "Product not found for id " + orderItem.getProduct().getId()));
+                    Product product =  productMap.get(orderItem.getProduct().getId());
+                    if(product == null){
+                        throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "Product not found for id " + orderItem.getProduct().getId());
+                    }
                     return new OrderItemResponseDTO(
                             product.getId(),
                             product.getName(),
