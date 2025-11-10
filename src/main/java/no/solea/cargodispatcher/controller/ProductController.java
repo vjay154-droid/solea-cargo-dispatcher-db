@@ -17,7 +17,7 @@ import java.util.List;
  * Provides endpoints to create, update, and fetch product information.
  */
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 @Slf4j
 public class ProductController {
 

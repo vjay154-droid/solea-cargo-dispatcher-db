@@ -32,7 +32,7 @@ class ProductControllerValidationTest {
     void createProduct_shouldFail_whenNameBlank() throws Exception {
         ProductRequestDTO request = new ProductRequestDTO("", 5.0);
 
-        mockMvc.perform(post("/products")
+        mockMvc.perform(post("/api/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())
@@ -43,7 +43,7 @@ class ProductControllerValidationTest {
     void createProduct_shouldFail_whenSizeNull() throws Exception {
         ProductRequestDTO request = new ProductRequestDTO("Widget", null);
 
-        mockMvc.perform(post("/products")
+        mockMvc.perform(post("/api/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())
@@ -54,7 +54,7 @@ class ProductControllerValidationTest {
     void updateProduct_shouldFail_whenRequestEmpty() throws Exception {
         ProductUpdateRequestDTO request = new ProductUpdateRequestDTO(null, null);
 
-        mockMvc.perform(patch("/products/1")
+        mockMvc.perform(patch("/api/products/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())   // our RestExceptionHandler should respond this

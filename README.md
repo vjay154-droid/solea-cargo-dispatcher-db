@@ -135,6 +135,13 @@ Configuration file:
 
 You can easily switch to another database by updating the JPA datasource properties.
 
+### H2 database console setup
+We can access the h2 console here: http://localhost:3004/h2-console 
+JDBC url : jdbc:h2:mem:soleadb
+username: sa
+password:
+(password is empty)
+
 ---
 ## Testing
 Run all unit tests with:

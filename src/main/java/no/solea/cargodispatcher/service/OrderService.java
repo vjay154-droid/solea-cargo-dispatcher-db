@@ -51,7 +51,7 @@ public class OrderService {
 
         Planet planet = planetRepository.findById(orderRequestDTO.planetId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Planet not found with id " + orderRequestDTO.planetId()));
+                        "Planet not found"));
 
         List<OrderItem> items = new ArrayList<>();
         double totalVolume = 0.0;

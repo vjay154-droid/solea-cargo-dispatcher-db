@@ -16,7 +16,7 @@ import java.util.List;
  * Provides endpoints to retrieve all planets or a planet by its ID.
  */
 @RestController
-@RequestMapping("/planets")
+@RequestMapping("/api/planets")
 @Slf4j
 public class PlanetController {
     private final PlanetService planetService;

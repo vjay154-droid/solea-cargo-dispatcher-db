@@ -1,5 +1,6 @@
 package no.solea.cargodispatcher.controller;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import no.solea.cargodispatcher.dto.OrderRequestDTO;
 import no.solea.cargodispatcher.dto.OrderResponseDTO;
@@ -16,7 +17,7 @@ import java.util.List;
  * Provides endpoints for creating, retrieving, and listing orders.
  */
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 @Slf4j
 public class OrderController {
 
@@ -57,7 +58,8 @@ public class OrderController {
      * @throws ResponseStatusException if order item list is empty or null
      */
     @PostMapping
-    public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody OrderRequestDTO orderRequestDTO){
+    public ResponseEntity<OrderResponseDTO> createOrder(
+            @Valid @RequestBody OrderRequestDTO orderRequestDTO){
         log.info("Post /orders called with : {}",orderRequestDTO);
         if (orderRequestDTO.orderItemDTOList() == null || orderRequestDTO.orderItemDTOList().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,

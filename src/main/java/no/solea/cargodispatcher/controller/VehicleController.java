@@ -16,7 +16,7 @@ import java.util.List;
  * Provides endpoints to fetch vehicle information.
  */
 @RestController
-@RequestMapping("/vehicles")
+@RequestMapping("/api/vehicles")
 @Slf4j
 public class VehicleController {
     private final VehicleService vehicleService;
