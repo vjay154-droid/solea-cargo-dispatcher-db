@@ -95,4 +95,9 @@ public class ProductService {
     public ProductResponseDTO getProductResponseById(long id){
         return ProductMapper.toProductResponseDTO(getProductById(id));
     }
+
+    public List<ProductResponseDTO> findByMinSize(double size){
+        List<Product> products = productRepository.findBySizeGreaterThan(size);
+        return ProductMapper.toProductResponseDTO(products);
+    }
 }

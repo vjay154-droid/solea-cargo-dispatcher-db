@@ -84,4 +84,12 @@ public class ProductController {
         return ResponseEntity.ok(
                 productService.updateProduct(id,productUpdateRequestDTO));
     }
+
+    @GetMapping("/min-size/{minSize}")
+    public ResponseEntity<List<ProductResponseDTO>> getMinSize(@PathVariable double minSize){
+        log.info("Get /products/min-size/{} called",minSize);
+        return ResponseEntity.ok(
+                productService.findByMinSize(minSize)
+        );
+    }
 }

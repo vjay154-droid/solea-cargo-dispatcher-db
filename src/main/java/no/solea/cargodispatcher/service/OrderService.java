@@ -119,6 +119,14 @@ public class OrderService {
                 order.getItems().stream().map(OrderItem::getProduct).toList());
     }
 
+    public void deleteOrderById(long id) {
+        if (!orderRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "order not found with id " + id);
+        }
+        orderRepository.deleteById(id);
+    }
+
     /**
      * Assigns the most optimal vehicle for the order.
      * Chooses the vehicle that can carry the total volume and reach the planet fastest.

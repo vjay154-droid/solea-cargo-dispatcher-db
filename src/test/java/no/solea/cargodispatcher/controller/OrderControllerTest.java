@@ -18,7 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderControllerTest {
@@ -95,6 +95,27 @@ public class OrderControllerTest {
         assertEquals("Cheetah Gonzales", first.vehicleName());
         assertEquals(2, first.items().size());
         assertEquals("Ten pack clown suit", first.items().get(1).productName());
+    }
+
+    @Test
+    void testDeleteOrder_successful(){
+        doNothing().when(orderService).deleteOrderById(1L);
+
+        ResponseEntity<Void> response =
+                orderController.deleteOrderById(1L);
+
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+    }
+
+    @Test
+    void testDeleteOrder_shouldThrowException(){
+        doThrow(new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "Order found for id 99"))
+                .when(orderService).deleteOrderById(99L);
+
+        //assertThrows(ResponseStatusException.class, () -> orderController.deleteOrderById(99L));
+        assertThrows(ResponseStatusException.class, ()-> orderController.deleteOrderById(99L));
+
     }
 
     @Test

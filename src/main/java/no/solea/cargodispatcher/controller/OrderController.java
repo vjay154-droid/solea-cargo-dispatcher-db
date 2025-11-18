@@ -68,4 +68,10 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(orderService.placeOrder(orderRequestDTO));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteOrderById(@PathVariable long id){
+        orderService.deleteOrderById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

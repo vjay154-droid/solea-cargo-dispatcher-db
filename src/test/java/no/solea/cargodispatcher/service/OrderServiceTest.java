@@ -89,6 +89,20 @@ public class OrderServiceTest {
     }
 
     @Test
+    void deleteOrder_shouldDeleteOrderSuccessfully() {
+        when(orderRepository.existsById(1L)).thenReturn(true);
+
+        orderService.deleteOrderById(1L);
+    }
+
+    @Test
+    void deleteOrder_shouldThrowException(){
+        when(orderRepository.existsById(99L)).thenReturn(false);
+
+        assertThrows(ResponseStatusException.class, () -> orderService.deleteOrderById(99L));
+    }
+
+    @Test
     void placeOrder_shouldThrowWhenProductNotFound() {
         when(planetRepository.findById(1L)).thenReturn(Optional.of(planet));
         when(productRepository.findById(1L)).thenReturn(Optional.empty());
